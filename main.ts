@@ -1,4 +1,4 @@
-serial.writeLine("We are ready to go!")
+// serial.writeLine("We are ready to go!")
 
 radio.setGroup(17)
 
@@ -6,18 +6,12 @@ let brightness = 0
 let message = "0"
 
 basic.forever(function () {
-    // if (input.isGesture(Gesture.TiltLeft)) {
-    //     basic.showArrow(ArrowNames.East)
-    // }
-    // if (input.isGesture(Gesture.TiltRight)) {
-    //     basic.showArrow(ArrowNames.West)
-    // }
-    // serial.writeNumber(5)
-    brightness = input.lightLevel()
-    serial.writeLine(brightness.toString())
-    brightness = Math.round(brightness/26)
-    message = String.fromCharCode(brightness + 48)
-    // serial.writeLine(message)
+    for(let i = 0; i < 4; i++) {
+        brightness = input.lightLevel()
+        message = String.fromCharCode(Math.round(brightness / 26) + 48)
+
+        serial.writeLine(brightness.toString() + ", " + message)
+        basic.pause(250)
+    }
     radio.sendString(message)
-    basic.pause(1000)
 })
